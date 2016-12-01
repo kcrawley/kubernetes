@@ -214,7 +214,8 @@ function run-heat-script() {
       --parameter elasticsearch_replicas=${ELASTICSEARCH_REPLICAS} \
       --parameter number_of_minions=${NUMBER_OF_MINIONS} \
       --parameter max_number_of_minions=${MAX_NUMBER_OF_MINIONS} \
-      --parameter dns_nameserver=${DNS_SERVER} \
+      --parameter dns_nameserver1=${DNS_SERVER1} \
+      --parameter dns_nameserver2=${DNS_SERVER2} \
       --parameter kubernetes_salt_url=${swift_repo_url}/kubernetes-salt.tar.gz \
       --parameter kubernetes_server_url=${swift_repo_url}/kubernetes-server.tar.gz \
       --parameter os_auth_url=${OS_AUTH_URL} \

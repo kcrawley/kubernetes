@@ -63,7 +63,10 @@ DOWNLOAD_IMAGE=${DOWNLOAD_IMAGE:-true}
 IMAGE_ID=${IMAGE_ID:-f0f394b1-5546-4b68-b2bc-8abe8a7e6b8b}
 
 # DNS server address
-DNS_SERVER=${DNS_SERVER:-8.8.8.8}
+DNS_SERVER1=${DNS_SERVER1:-8.8.8.8}
+
+# Secondary DNS server address
+DNS_SERVER2=${DNS_SERVER2:-8.8.4.4}
 
 # Public RSA key path
 CLIENT_PUBLIC_KEY_PATH=${CLIENT_PUBLIC_KEY_PATH:-~/.ssh/id_rsa.pub}

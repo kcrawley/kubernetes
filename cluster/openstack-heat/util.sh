@@ -121,7 +121,7 @@ function upload-resources() {
 
   local server_archive_exists=$(swift stat kubernetes ${server_archive} | awk "FNR == 3 { if (\$2 == \"$server_archive\") print \$2 }")
   if [[ ! $server_archive_exists ]]; then
-  echo "[INFO] Uploading ${KUBERNETES_RELEASE_TAR}"
+    echo "[INFO] Uploading ${KUBERNETES_RELEASE_TAR}"
     swift upload kubernetes ${RELEASE_TAR_PATH}/${KUBERNETES_RELEASE_TAR} --object-name ${server_archive}
   else
     echo "[INFO] ${server_archive} already exists"
@@ -130,7 +130,7 @@ function upload-resources() {
   local salt_archive_exists=$(swift stat kubernetes ${salt_archive} | awk "FNR == 3 { if (\$2 == \"$salt_archive\") print \$2 }")
 
   if [[ ! $salt_archive_exists ]]; then
-  echo "[INFO] Uploading kubernetes-salt.tar.gz"
+    echo "[INFO] Uploading kubernetes-salt.tar.gz"
     swift upload kubernetes ${RELEASE_TAR_PATH}/kubernetes-salt.tar.gz --object-name ${salt_archive}
   else
     echo "[INFO] ${salt_archive} already exists"

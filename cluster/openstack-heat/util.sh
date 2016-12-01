@@ -116,13 +116,25 @@ function upload-resources() {
   RELEASE_TAR_LOCATION=$( (ls -t "${locations[@]}" 2>/dev/null || true) | head -1 )
   RELEASE_TAR_PATH=$(dirname ${RELEASE_TAR_LOCATION})
 
-  echo "[INFO] Uploading ${KUBERNETES_RELEASE_TAR}"
-  swift upload kubernetes ${RELEASE_TAR_PATH}/${KUBERNETES_RELEASE_TAR} \
-    --object-name kubernetes-server.tar.gz
+  local server_archive=kubernetes-server.tar.gz
+  local salt_archive=kubernetes-salt.tar.gz
 
+  local server_archive_exists=$(swift stat kubernetes ${server_archive} | awk "FNR == 3 { if (\$2 == \"$server_archive\") print \$2 }")
+  if [[ ! $server_archive_exists ]]; then
+  echo "[INFO] Uploading ${KUBERNETES_RELEASE_TAR}"
+    swift upload kubernetes ${RELEASE_TAR_PATH}/${KUBERNETES_RELEASE_TAR} --object-name ${server_archive}
+  else
+    echo "[INFO] ${server_archive} already exists"
+  fi
+  
+  local salt_archive_exists=$(swift stat kubernetes ${salt_archive} | awk "FNR == 3 { if (\$2 == \"$salt_archive\") print \$2 }")
+
+  if [[ ! $salt_archive_exists ]]; then
   echo "[INFO] Uploading kubernetes-salt.tar.gz"
-  swift upload kubernetes ${RELEASE_TAR_PATH}/kubernetes-salt.tar.gz \
-    --object-name kubernetes-salt.tar.gz
+    swift upload kubernetes ${RELEASE_TAR_PATH}/kubernetes-salt.tar.gz --object-name ${salt_archive}
+  else
+    echo "[INFO] ${salt_archive} already exists"
+  fi
 }
 
 # Create a new key pair for use with servers.

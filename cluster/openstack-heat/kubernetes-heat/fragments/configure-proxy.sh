@@ -67,4 +67,11 @@ if [[ "${ENABLE_PROXY}" == "true" ]]; then
   echo "${ETC_PROFILE_D}" > /etc/profile.d/proxy_config.sh
   echo "${DOCKER_PROXY}" > etc/systemd/system/docker.service.d/http-proxy.conf
   echo "proxy=$HTTP_PROXY" >> /etc/yum.conf
+
+  # proxy is useless if we're hitting mirrors the entire time (set by heat)
+  if [[ -n "$HTTP_PROXY" ]]; then
+    sed -i 's/^mirrorlist=/#mirrorlist=/' /etc/yum.repos.d/CentOS-Base.repo
+    sed -i 's/^#baseurl=/baseurl=/' /etc/yum.repos.d/CentOS-Base.repo
+    rm -f /etc/yum/pluginconf.d/fastestmirror.conf
+  fi
 fi

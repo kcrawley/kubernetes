@@ -206,6 +206,12 @@ function run-heat-script() {
       --parameter server_image=${IMAGE_ID} \
       --parameter master_flavor=${MASTER_FLAVOR} \
       --parameter minion_flavor=${MINION_FLAVOR} \
+      --parameter enable_cluster_monitoring=${ENABLE_CLUSTER_MONITORING} \
+      --parameter enable_cluster_logging=${ENABLE_CLUSTER_LOGGING} \
+      --parameter enable_cluster_ui=${ENABLE_CLUSTER_UI} \
+      --parameter enable_node_logging=${ENABLE_NODE_LOGGING} \
+      --parameter logging_destination=${LOGGING_DESTINATION} \
+      --parameter elasticsearch_replicas=${ELASTICSEARCH_REPLICAS} \
       --parameter number_of_minions=${NUMBER_OF_MINIONS} \
       --parameter max_number_of_minions=${MAX_NUMBER_OF_MINIONS} \
       --parameter dns_nameserver=${DNS_SERVER} \

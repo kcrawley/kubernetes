@@ -66,6 +66,36 @@ parameters:
     description: OpenStack Tenant ID
     default: false
 
+  enable_cluster_monitoring:
+    type: string
+    description: Specifies the monitoring package to run (none, influxdb)
+    default: influxdb
+
+  enable_cluster_logging:
+    type: string
+    description: Whether or not to enable the Kubernetes management dashboard
+    default: true
+
+  enable_cluster_ui:
+    type: string
+    description: Whether or not to enable the Kubernetes management dashboard
+    default: true
+
+  enable_node_logging:
+    type: string
+    description: Whether or not to enable the node logging (elasticsearch) component
+    default: true
+
+  logging_destination:
+    type: string
+    description: The node logging destination
+    default: elasticsearch
+
+  elasticsearch_replicas:
+    type: number
+    description: The number of elastic search nodes to start up
+    default: 1
+
   enable_proxy:
     type: string
     description: Whether or not to enable proxy settings
@@ -209,6 +239,12 @@ resources:
           template: {get_file: fragments/configure-salt.yaml}
           params:
             "$MASTER_IP": {get_param: kube_master_ip}
+            "$ENABLE_CLUSTER_MONITORING": {get_param: enable_cluster_monitoring}
+            "$ENABLE_CLUSTER_LOGGING": {get_param: enable_cluster_logging}
+            "$ENABLE_CLUSTER_UI": {get_param: enable_cluster_ui}
+            "$ENABLE_NODE_LOGGING": {get_param: enable_node_logging}
+            "$LOGGING_DESTINATION": {get_param: logging_destination}
+            "$ELASTICSEARCH_REPLICAS": {get_param: elasticsearch_replicas}
             "$OS_AUTH_URL": {get_param: os_auth_url}
             "$OS_USERNAME": {get_param: os_username}
             "$OS_PASSWORD": {get_param: os_password}
